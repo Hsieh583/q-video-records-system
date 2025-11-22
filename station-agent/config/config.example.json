@@ -1,0 +1,36 @@
+{
+  "station_uid": "Q-STATION-001",
+  "station_name": "Q台-1號",
+  "api_endpoint": "http://localhost:3000/api",
+  "scan_mode": "COM",
+  "com_port": "COM3",
+  "barcode_patterns": {
+    "ORDER": "^ORD-",
+    "PRODUCT": "^PRD-",
+    "FIELD1": "^F1-",
+    "FIELD2": "^F2-",
+    "FIELD3": "^F3-",
+    "FIELD4": "^F4-",
+    "Q": "^Q$"
+  },
+  "expected_devices": {
+    "ipcams": [
+      {
+        "role": "MAIN",
+        "expected_serial": "CAM-SERIAL-001"
+      },
+      {
+        "role": "ENV",
+        "expected_serial": "CAM-SERIAL-002"
+      }
+    ],
+    "nas": {
+      "expected_serial": "NAS-SERIAL-001"
+    }
+  },
+  "health_check_interval": 30,
+  "retry_interval": 5,
+  "max_queue_size": 1000,
+  "time_drift_threshold": 3,
+  "diagnostic_mode": false
+}

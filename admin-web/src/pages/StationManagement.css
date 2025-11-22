@@ -1,0 +1,42 @@
+.station-management h1 {
+  margin-bottom: 30px;
+  color: #001529;
+}
+
+.content-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.station-form h2 {
+  margin-bottom: 25px;
+  color: #001529;
+}
+
+.device-binding {
+  padding: 20px;
+  background-color: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.device-binding h4 {
+  margin: 15px 0 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+.device-binding h4:first-child {
+  margin-top: 0;
+}
+
+.device-binding input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 14px;
+}
