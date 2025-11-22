@@ -1,0 +1,96 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.App-header h1 {
+  margin-bottom: 10px;
+}
+
+.App-header p {
+  color: #61dafb;
+}
+
+.App-main {
+  flex: 1;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.App-footer {
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  border: 1px solid #ef5350;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.error-message h3 {
+  color: #c62828;
+  margin-bottom: 10px;
+}
+
+.error-message .suggestions {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.error-message .suggestions h4 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.error-message .suggestions ul {
+  list-style-position: inside;
+  color: #666;
+}
+
+.error-message .suggestions li {
+  margin: 5px 0;
+}
+
+.order-results {
+  margin-top: 30px;
+}
+
+.order-info {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.order-info h2 {
+  margin-bottom: 15px;
+  color: #282c34;
+}
+
+.order-info p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.order-info strong {
+  color: #282c34;
+}
