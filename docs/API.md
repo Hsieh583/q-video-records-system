@@ -71,14 +71,20 @@ http://localhost:3000/api
 
 ---
 
-### GET /orders/:order_no/events
+### POST /orders/:order_no/events
 
 根據訂單號查詢相關事件和影片資訊。
 
 **請求範例：**
 
 ```
-GET /api/orders/ORD-2024-001/events
+POST /api/orders/ORD-2024-001/events
+Content-Type: application/json
+
+{
+  "user_id": "viewer_user",
+  "ip_address": "192.168.1.100"
+}
 ```
 
 **回應範例：**

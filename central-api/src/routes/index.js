@@ -11,7 +11,7 @@ router.post('/events/log', eventsController.logEvent);
 router.get('/events', eventsController.getEvents);
 
 // Orders API
-router.get('/orders/:order_no/events', ordersController.getOrderEvents);
+router.post('/orders/:order_no/events', ordersController.getOrderEvents);
 
 // Health API
 router.post('/health/report', healthController.reportHealth);

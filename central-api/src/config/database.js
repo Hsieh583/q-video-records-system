@@ -9,7 +9,7 @@ const config = {
   password: process.env.DB_PASSWORD || '',
   options: {
     encrypt: true,
-    trustServerCertificate: true,
+    trustServerCertificate: process.env.NODE_ENV === 'development',
     enableArithAbort: true
   },
   pool: {
