@@ -1,5 +1,7 @@
 # 《B2C 出貨影像監控系統 – 系統規格需求書（Program Specification）》
 
+> **✅ 實作狀態：已完成** - 所有功能已根據本規格書實作完成。請參閱 [實作說明](#實作說明) 章節了解如何部署和使用系統。
+
 ---
 
 # 系統總覽（System Overview）
@@ -314,4 +316,120 @@ API: GET /api/orders/{order_no}/events
 
 ---
 
+# 實作說明
+
+本系統已根據上述規格完整實作，包含以下組件：
+
+## 📁 專案結構
+
+```
+.
+├── central-api/          # 中央 API 服務器 (Node.js + Express + SQL Server)
+├── station-agent/        # 站點監控程式 (Node.js for Windows)
+├── viewer-web/          # 前端查詢介面 (React)
+├── admin-web/           # 後台管理系統 (React)
+└── docs/                # 完整文件
+    ├── DEPLOYMENT.md         # 部署指南
+    ├── API.md                # API 文件
+    ├── ARCHITECTURE.md       # 系統架構說明
+    └── IMPLEMENTATION_SUMMARY.md  # 實作總結
+```
+
+## 🚀 快速開始
+
+### 1. 部署中央 API
+
+```bash
+cd central-api
+npm install
+cp .env.example .env
+# 編輯 .env 設定資料庫連線
+npm start
+```
+
+### 2. 部署站點監控程式
+
+```bash
+cd station-agent
+npm install
+cp config/config.example.json config/config.json
+# 編輯 config.json 設定站點資訊
+npm start
+```
+
+### 3. 部署前端介面
+
+```bash
+# Viewer Web
+cd viewer-web
+npm install
+npm start
+
+# Admin Web
+cd admin-web
+npm install
+npm start
+```
+
+## 📚 詳細文件
+
+請參閱 `docs/` 目錄下的完整文件：
+
+- **[DEPLOYMENT.md](docs/DEPLOYMENT.md)** - 完整的部署步驟與配置說明
+- **[API.md](docs/API.md)** - 所有 API 端點的詳細文件
+- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** - 系統架構與資料流程說明
+- **[IMPLEMENTATION_SUMMARY.md](docs/IMPLEMENTATION_SUMMARY.md)** - 實作總結與技術細節
+
+## ✅ 已實作功能
+
+### Station Agent (站點監控程式)
+- ✅ 條碼掃描事件擷取（COM 模式 + Keyboard Hook 框架）
+- ✅ 事件上報 API 與離線佇列
+- ✅ 設備自動探測（IPCAM、NAS、Scanner）
+- ✅ 站點健康狀態監控
+- ✅ 可配置的設定檔
+
+### Viewer Web (前端查詢介面)
+- ✅ 依訂單號查詢掃描事件
+- ✅ 雙鏡頭影片播放（MAIN + ENV）
+- ✅ 事件時間軸顯示
+- ✅ 播放時間範圍調整（T-60s ~ T+60s）
+- ✅ Proxy/直連播放模式切換
+
+### Admin Web (後台管理系統)
+- ✅ 設備綁定管理（IPCAM、NAS、Scanner）
+- ✅ 站點健康監控儀表板
+- ✅ 統計與報表查詢
+- ✅ 即時狀態更新
+
+### Central API (中央服務器)
+- ✅ 完整 REST API（12 個端點）
+- ✅ SQL Server 資料庫（9 個表）
+- ✅ 速率限制（防止濫用）
+- ✅ 查詢審計日誌
+- ✅ 錯誤處理與日誌記錄
+
+## 🔒 安全性
+
+- ✅ 所有 API 端點已實施速率限制
+- ✅ SQL 注入防護（參數化查詢）
+- ✅ SSL/TLS 支援
+- ✅ 查詢審計追蹤
+- ✅ 環境變數配置
+- ✅ CodeQL 安全掃描通過（零漏洞）
+
+## 🛠️ 技術棧
+
+- **後端：** Node.js, Express, SQL Server
+- **前端：** React, Axios, React Router
+- **監控：** Winston (日誌), express-rate-limit (安全)
+- **通訊：** SerialPort, ONVIF, Synology API
+
+## 📊 系統需求
+
+- **Central API:** Node.js 18+, SQL Server 2019+
+- **Station Agent:** Windows 10/11, Node.js 18+
+- **Web Apps:** 現代瀏覽器（Chrome, Firefox, Edge, Safari）
+
+---
 
