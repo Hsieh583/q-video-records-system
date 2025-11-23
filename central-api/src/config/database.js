@@ -22,6 +22,11 @@ const config = {
 let pool = null;
 
 async function getPool() {
+  if (process.env.NODE_ENV === 'simulation') {
+    const mockDb = require('./mockDatabase');
+    return mockDb.getPool();
+  }
+
   if (!pool) {
     pool = await sql.connect(config);
   }

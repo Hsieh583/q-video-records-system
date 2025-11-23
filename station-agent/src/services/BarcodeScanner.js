@@ -16,6 +16,8 @@ class BarcodeScanner {
       await this.startCOMMode();
     } else if (this.config.scan_mode === 'KEYBOARD') {
       await this.startKeyboardMode();
+    } else if (this.config.scan_mode === 'SIMULATION') {
+      await this.startSimulationMode();
     } else {
       throw new Error(`Unknown scan mode: ${this.config.scan_mode}`);
     }
@@ -24,7 +26,7 @@ class BarcodeScanner {
   async startCOMMode() {
     try {
       logger.info(`Starting barcode scanner in COM mode on ${this.config.com_port}`);
-      
+
       this.port = new SerialPort({
         path: this.config.com_port,
         baudRate: 9600,
@@ -57,8 +59,27 @@ class BarcodeScanner {
     // This would require platform-specific keyboard hooks
     // For Windows: using node-global-key-listener or similar
     // Implementation would capture keyboard input and detect barcode patterns
-    
+
     logger.info('Barcode scanner Keyboard mode initialized (stub)');
+  }
+
+  async startSimulationMode() {
+    logger.info('Starting barcode scanner in SIMULATION mode (stdin)');
+
+    const readline = require('readline');
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      terminal: false
+    });
+
+    rl.on('line', (line) => {
+      if (line.trim()) {
+        this.processBarcodeData(line.trim());
+      }
+    });
+
+    logger.info('Simulation mode ready. Type barcode and press Enter.');
   }
 
   processBarcodeData(barcodeValue) {
@@ -68,7 +89,7 @@ class BarcodeScanner {
 
     // Identify barcode type based on patterns
     const eventType = this.identifyBarcodeType(barcodeValue);
-    
+
     if (!eventType) {
       logger.warn('Unknown barcode pattern:', { value: barcodeValue });
       return;
@@ -105,21 +126,21 @@ class BarcodeScanner {
 
   identifyBarcodeType(barcodeValue) {
     const patterns = this.config.barcode_patterns;
-    
+
     for (const [type, pattern] of Object.entries(patterns)) {
       const regex = new RegExp(pattern);
       if (regex.test(barcodeValue)) {
         return type;
       }
     }
-    
+
     return null;
   }
 
   getLocalIP() {
     const { networkInterfaces } = require('os');
     const nets = networkInterfaces();
-    
+
     for (const name of Object.keys(nets)) {
       for (const net of nets[name]) {
         if (net.family === 'IPv4' && !net.internal) {
@@ -134,7 +155,7 @@ class BarcodeScanner {
     try {
       const ApiClient = require('./ApiClient');
       const apiClient = new ApiClient(this.config);
-      
+
       await apiClient.reportHealth({
         station_uid: this.config.station_uid,
         type: 'SCANNER_STATUS',
@@ -148,7 +169,7 @@ class BarcodeScanner {
 
   async stop() {
     logger.info('Stopping barcode scanner...');
-    
+
     if (this.port && this.port.isOpen) {
       await this.port.close();
       logger.info('Serial port closed');
